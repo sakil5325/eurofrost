@@ -288,6 +288,7 @@
       });
     })();
     $('#myForm').on('submit', function(event) {
+      var thisForm = this
     event.preventDefault(); // prevent reload
     
     var formData = new FormData(this);
@@ -301,7 +302,11 @@
         contentType: false, // auto-detection
         processData: false // no need to parse formData to string
     }).done(function() {
-        alert('Your mail is sent!');
+      thisForm.querySelector('.sent-message').classList.add('d-block');
+        thisForm.reset();
+        setTimeout(() => {
+          thisForm.querySelector('.sent-message').classList.remove('d-block');
+        }, 3000);
     }).fail(function(error) {
         alert('Oops... ' + JSON.stringify(error));
     });
